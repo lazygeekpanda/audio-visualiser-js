@@ -7,7 +7,9 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyles />
+    <React.Suspense fallback={<div>Loading...</div>}>
     <App />
+    </React.Suspense>
   </React.StrictMode>,
   document.getElementById('root')
 );
