@@ -1,9 +1,8 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, memo } from 'react'
 
 import * as THREE from 'three'
 import { useTexture } from '@react-three/drei'
 import CustomShaderMaterial from 'three-custom-shader-material'
-import { useFrame } from '@react-three/fiber'
 
 const fragmentShader = `
 float aastep(in float threshold, in float value) {
@@ -32,7 +31,7 @@ interface Props {
 const Terrain: React.FC<Props> = forwardRef<THREE.Mesh, Props>(
   ({ z }, ref) => {
     const [heightTexture, metalnessTexture] = useTexture([
-      require('assets/images/materials/synth/displacement-7.png'),
+      require('assets/images/materials/synth/displacement-6.jpg'),
       require('assets/images/materials/synth/metalness-2.png'),
     ])
 
@@ -51,7 +50,7 @@ const Terrain: React.FC<Props> = forwardRef<THREE.Mesh, Props>(
           displacementMap={heightTexture}
           displacementScale={0.1}
           metalnessMap={metalnessTexture}
-          metalness={0.75}
+          metalness={0.95}
           roughness={0.25}
           fragmentShader={fragmentShader}
         />
@@ -60,4 +59,4 @@ const Terrain: React.FC<Props> = forwardRef<THREE.Mesh, Props>(
   }
 )
 
-export default Terrain
+export default memo(Terrain)
