@@ -26,32 +26,38 @@ void main() {
 `
 
 interface Props {
-  z: number,
-  update: any
+  z: number
 }
 
-const Terrain: React.FC<Props> = forwardRef<THREE.Mesh, Props>(({ z, update }, ref) => {
-  const [heightTexture, metalnessTexture] = useTexture([
-    require('assets/images/materials/synth/displacement-7.png'),
-    require('assets/images/materials/synth/metalness-2.png'),
-  ])
+const Terrain: React.FC<Props> = forwardRef<THREE.Mesh, Props>(
+  ({ z }, ref) => {
+    const [heightTexture, metalnessTexture] = useTexture([
+      require('assets/images/materials/synth/displacement-7.png'),
+      require('assets/images/materials/synth/metalness-2.png'),
+    ])
 
-  return (
-    <mesh ref={ref} position={[0, 0, z]} rotation={[-Math.PI * 0.5, 0, 0]} castShadow>
-      <planeBufferGeometry attach="geometry" args={[1, 2, 24, 24]} />
-      <CustomShaderMaterial
-        baseMaterial={THREE.MeshStandardMaterial}
-        displacementMap={heightTexture}
-        displacementScale={0.4}
-        metalnessMap={metalnessTexture}
-        metalness={0.5}
-        roughness={0.15}
-        fragmentShader={fragmentShader}
-        emissive="#9CFDFF"
-        emissiveIntensity={0.01}
-      />
-    </mesh>
-  )
-})
+    return (
+      <mesh
+        ref={ref}
+        position={[0, 0, z * 0.05]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        castShadow
+        receiveShadow
+      >
+        <planeBufferGeometry attach="geometry" args={[1, 2, 48, 48]} />
+        <CustomShaderMaterial
+          baseMaterial={THREE.MeshPhongMaterial}
+          side={THREE.DoubleSide}
+          displacementMap={heightTexture}
+          displacementScale={0.1}
+          metalnessMap={metalnessTexture}
+          metalness={0.75}
+          roughness={0.25}
+          fragmentShader={fragmentShader}
+        />
+      </mesh>
+    )
+  }
+)
 
 export default Terrain

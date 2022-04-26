@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 
 import * as THREE from 'three'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Stats } from '@react-three/drei'
+import { OrbitControls, Stats, Html, Text } from '@react-three/drei'
 
 import createAudio from 'utils/createAudio'
 import { suspend } from 'suspend-react'
 
 import SynthTerrain from 'components/SynthTerrain/Scene'
-import Effects from 'components/SynthTerrain/Effects'
+
+import colors from 'styles/colors'
 
 import Track from 'components/Track'
 
@@ -29,7 +30,6 @@ const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false)
 
   const onClick = () => {
-    console.log('click')
     if (isPlaying) {
       setIsPlaying(false)
       stop()
@@ -48,37 +48,44 @@ const App: React.FC = () => {
         style={{
           width: '100vw',
           height: 'calc(100vh - 22px)',
-          backgroundColor: '#000',
         }}
       >
         <Canvas
-          camera={{ position: [0, 0.15, 0.25], fov: 25, near: 0.01, far: 10 }}
-          dpr={[1, 2]}
+          camera={{
+            position: [0.025, 0.25, 0.4],
+            fov: 27,
+            near: 0.02,
+            far: 10,
+          }}
           linear
-          shadows
+          dpr={[1, 2]}
+          onCreated={({ gl }) => {
+            gl.toneMapping = THREE.NoToneMapping
+          }}
         >
           <Stats showPanel={0} />
           <React.Suspense fallback="Loading">
-            <color attach="background" args={['#000000']} />
-            <fog attach="fog" args={['#000', 1, 3.5]} />
-            {/* <Track position-z={-0.25} gain={gain} context={context} update={update} data={data} /> */}
-            <Effects />
-            {/* <Track
-              position={[0, 0.01, -0.5]}
+            <Text position={[0, 0.015, 0.75]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.5, 0.5, 0.5]} >
+              Royalty
+            </Text>
+            <color attach="background" args={[colors.black]} />
+            <fog attach="fog" args={[colors.black, 0.5, 2.5]} />
+            <Html position={[0, 0, -4]}>
+              <div style={{ color: 'white' }}>Egzod</div>
+            </Html>
+
+            <Track
+              position={[-0.175, 0.01, 0.75]}
               rotation={[-Math.PI / 2, -Math.PI / 2, -Math.PI / 2]}
-              gain={gain}
-              context={context}
               update={update}
               data={data}
-            /> */}
-            {/* <Track
-              position={[0.2, 0.15, 0.15]}
-              rotation={[-Math.PI / 2, Math.PI * 0.5, -Math.PI / 2.1]}
-              gain={gain}
-              context={context}
+            />
+            <Track
+              position={[0.175, 0.01, 0.75]}
+              rotation={[-Math.PI / 2, -Math.PI / 2, -Math.PI / 2]}
               update={update}
               data={data}
-            /> */}
+            />
 
             <SynthTerrain
               isPlaying={isPlaying}
@@ -87,19 +94,16 @@ const App: React.FC = () => {
               update={update}
               data={data}
             />
-            {/* <Track position-z={0} gain={gain} context={context} update={update} data={data} scale={2} /> */}
 
-            {/* <Particles focus={5} speed={50} aperture={2.5} fov={30} curl={0.25} /> */}
             <OrbitControls
-              minPolarAngle={Math.PI / 2.3}
+              minPolarAngle={Math.PI / 2.15}
               maxPolarAngle={Math.PI / 2.2}
               minAzimuthAngle={-Math.PI / 8}
               maxAzimuthAngle={Math.PI / 8}
-              minDistance={0.75}
+              minDistance={1}
               maxDistance={1.75}
               rotateSpeed={0.15}
             />
-            {/* <Sphube size={1} speed={0.5} scale={0.01} rotation={[0, 0, 0]} position={[0, 0, 0]} animate playing={playing} /> */}
           </React.Suspense>
         </Canvas>
       </div>

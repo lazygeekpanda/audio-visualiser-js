@@ -14,9 +14,9 @@ interface Props {
 
 const Scene: React.FC<Props> = ({ isPlaying, gain, context, update, data }) => (
   <Suspense fallback={null}>
-      <Landscape isPlaying={isPlaying} update={update} />
+      <Landscape update={update} />
       <Light />
-      {/* <Effects /> */}
+      <Effects update={update} />
   </Suspense>
 )
 

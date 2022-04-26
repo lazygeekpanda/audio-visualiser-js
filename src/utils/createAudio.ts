@@ -16,7 +16,7 @@ const createAudio = async (url: string) => {
   // Create gain node and an analyser
   const gain = context.createGain()
   const analyser = context.createAnalyser()
-  analyser.fftSize = 64
+  analyser.fftSize = 128
   source.connect(analyser)
   analyser.connect(gain)
   // The data array receive the audio frequencies

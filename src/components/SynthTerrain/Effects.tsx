@@ -1,17 +1,17 @@
-import { useEffect, useRef, useMemo } from 'react'
+import { useEffect, useRef, useMemo, memo } from 'react'
 
 import * as THREE from 'three'
 import { useThree, extend, useFrame, Object3DNode } from '@react-three/fiber'
+import { Effects as EffectsComposer } from '@react-three/drei'
 import {
-  EffectComposer,
-  GammaCorrectionShader,
   RGBShiftShader,
   RenderPass,
   ShaderPass,
   UnrealBloomPass,
+  // GlitchPass,
 } from 'three-stdlib'
 
-extend({ EffectComposer, RenderPass, ShaderPass, UnrealBloomPass })
+extend({ RenderPass, ShaderPass, UnrealBloomPass })
 
 declare global {
   namespace JSX {
@@ -21,29 +21,21 @@ declare global {
   }
 }
 
-const Effects: React.FC = () => {
-  const composerRef = useRef<EffectComposer>()
+interface Props {
+  update: any
+}
+
+const Effects: React.FC<Props> = ({ update }) => {
   const rgbShiftRef = useRef<typeof RGBShiftShader>()
 
   const { gl, scene, camera, size } = useThree()
 
-  useEffect(() => {
-    if (!composerRef.current) {
-      return
-    }
-
-    composerRef.current.setSize(size.width, size.height)
-  }, [size])
-
   useFrame((_, delta) => {
-    if (!rgbShiftRef.current || !composerRef.current) {
+    if (!rgbShiftRef.current) {
       return
     }
-
-    rgbShiftRef.current.uniforms['amount'].value = delta
-    // rgbShiftRef.current.uniforms['amount'].value = 0.0012
-    console.log(composerRef)
-    composerRef.current.render()
+    const avg = update()
+    rgbShiftRef.current.uniforms['amount'].value = avg / 50000
   })
 
   const aspect = useMemo(
@@ -52,35 +44,26 @@ const Effects: React.FC = () => {
   )
 
   return (
-    <effectComposer
-      // @ts-ignore
-      ref={composerRef}
-      args={[gl]}
-    >
+    <EffectsComposer args={[gl]} disableGamma>
       <renderPass
-         // @ts-ignore
+        // @ts-ignore
         attachArray="passes"
         scene={scene}
         camera={camera}
       />
       <shaderPass
-         // @ts-ignore
+        // @ts-ignore
         ref={rgbShiftRef}
         attachArray="passes"
         args={[RGBShiftShader]}
       />
-      <shaderPass
-         // @ts-ignore
-        attachArray="passes"
-        args={[GammaCorrectionShader]}
-      />
       <unrealBloomPass
         // @ts-ignore
         attachArray="passes"
-        args={[aspect, 1, 0.8, 0]}
+        args={[aspect, 1.2, 1, 0]}
       />
-    </effectComposer>
+    </EffectsComposer>
   )
 }
 
-export default Effects
+export default memo(Effects)
