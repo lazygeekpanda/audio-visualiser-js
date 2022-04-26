@@ -57,11 +57,11 @@ const Effects: React.FC<Props> = ({ update }) => {
         attachArray="passes"
         args={[RGBShiftShader]}
       />
-      <unrealBloomPass
+      {/* <unrealBloomPass
         // @ts-ignore
         attachArray="passes"
         args={[aspect, 1.2, 1, 0]}
-      />
+      /> */}
     </EffectsComposer>
   )
 }

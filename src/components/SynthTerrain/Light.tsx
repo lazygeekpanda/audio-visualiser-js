@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, memo } from 'react'
 
 import colors from 'styles/colors'
 
@@ -48,4 +48,4 @@ const Light: React.FC = () => {
   )
 }
 
-export default Light
+export default memo(Light)

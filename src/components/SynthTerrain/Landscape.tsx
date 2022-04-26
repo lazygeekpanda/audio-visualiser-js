@@ -1,8 +1,7 @@
-import { useRef } from 'react'
+import { useRef, memo } from 'react'
 
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
-import { Html } from '@react-three/drei'
 
 import Terrain from './Terrain'
 
@@ -40,4 +39,4 @@ const Landscape: React.FC<Props> = ({ update }) => {
   )
 }
 
-export default Landscape
+export default memo(Landscape)

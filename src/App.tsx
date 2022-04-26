@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import * as THREE from 'three'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Stats, Html, Text } from '@react-three/drei'
+import { OrbitControls, Stats, Html } from '@react-three/drei'
 
 import createAudio from 'utils/createAudio'
 import { suspend } from 'suspend-react'
@@ -13,11 +13,48 @@ import colors from 'styles/colors'
 
 import Track from 'components/Track'
 
+const playlist = [
+  {
+    artist: 'Egzod',
+    trackName: 'Royalty',
+    url: 'Egzod_Royalty.mp3',
+  },
+  {
+    artist: 'Abstrakt',
+    trackName: 'Nobody Else',
+    url: 'Abstrakt_Nobody_Else.mp3',
+  },
+  {
+    artist: 'QR',
+    trackName: 'XXI',
+    url: 'QR_XXI.mp3',
+  },
+  {
+    artist: 'Facading',
+    trackName: 'Feelings',
+    url: 'Facading_Feelings.mp3',
+  },
+  {
+    artist: 'Abandoned',
+    trackName: 'Out of the Grave',
+    url: 'Abandoned_Out_of_the_Grave.mp3',
+  },
+  {
+    artist: 'Hoober',
+    trackName: 'Higher',
+    url: 'Hoober_Higher.mp3',
+  },
+]
+
 const App: React.FC = () => {
+  const [currentTrack, setCurrentTrack] = useState(0)
+
   const { gain, context, data, play, stop, update } = suspend(
-    () => createAudio(require('assets/audio/Egzod_Royalty.mp3')),
-    []
+    () => createAudio(require(`assets/audio/${playlist[currentTrack].url}`)),
+    [currentTrack]
   )
+
+const [useEffects, setUseEffects] = useState(false)
 
   useEffect(() => {
     // Connect the gain node, which plays the audio
@@ -42,17 +79,20 @@ const App: React.FC = () => {
   return (
     <div>
       <div style={{ display: 'inline-block', paddingRight: 100 }}></div>
-      <button onClick={onClick}>Play</button>
+      <button onClick={onClick}>{isPlaying ? 'Pause' : 'Play'}</button>
+      <button onClick={() => setCurrentTrack(currentTrack < playlist.length - 1? currentTrack + 1 : 0)}>Next Song</button>
+      <button onClick={() => setUseEffects(!useEffects)}>{useEffects ? 'Disable' : 'Enable'} effects</button>
 
       <div
         style={{
           width: '100vw',
           height: 'calc(100vh - 22px)',
+          fontFamily: '"Cormorant Garamond", serif'
         }}
       >
         <Canvas
           camera={{
-            position: [0.025, 0.25, 0.4],
+            position: [0.01, 0.25, 0.4],
             fov: 27,
             near: 0.02,
             far: 10,
@@ -65,13 +105,15 @@ const App: React.FC = () => {
         >
           <Stats showPanel={0} />
           <React.Suspense fallback="Loading">
-            <Text position={[0, 0.015, 0.75]} rotation={[-Math.PI / 2, 0, 0]} scale={[0.5, 0.5, 0.5]} >
-              Royalty
-            </Text>
             <color attach="background" args={[colors.black]} />
             <fog attach="fog" args={[colors.black, 0.5, 2.5]} />
             <Html position={[0, 0, -4]}>
-              <div style={{ color: 'white' }}>Egzod</div>
+              <div style={{ minWidth: 300, color: 'white', textAlign: 'center', transform: 'translate3D(-50%, -100%, 0)' }}>
+                <h1 style={{ fontSize: '48px' }}>{playlist[currentTrack].trackName}</h1>
+                <p style={{ color: '#ccc', marginTop: 20 }}>
+                {playlist[currentTrack].artist}
+                </p>
+              </div>
             </Html>
 
             <Track
@@ -93,6 +135,7 @@ const App: React.FC = () => {
               context={context}
               update={update}
               data={data}
+              useEffects={useEffects}
             />
 
             <OrbitControls
@@ -100,12 +143,15 @@ const App: React.FC = () => {
               maxPolarAngle={Math.PI / 2.2}
               minAzimuthAngle={-Math.PI / 8}
               maxAzimuthAngle={Math.PI / 8}
-              minDistance={1}
-              maxDistance={1.75}
+              minDistance={1.5}
+              maxDistance={2.75}
               rotateSpeed={0.15}
             />
           </React.Suspense>
         </Canvas>
+        <div style={{ position: 'fixed', bottom: 0, right: 0, left: 0, textAlign: 'center', zIndex: 999, color: '#fff' }}>
+          Credits
+        </div>
       </div>
     </div>
   )
