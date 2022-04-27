@@ -32,9 +32,9 @@ const Scene: React.FC<Props> = ({ useBloom, playing, update }) => {
   useFrame((state) => {
     const avg = update()
     if (avg > 155) {
-      state.camera.position.z = viewport.aspect
+      state.camera.position.z = 1.0
     } else {
-      state.camera.position.z = viewport.aspect * 1.25
+      state.camera.position.z = 1.15
     }
 
     state.camera.position.x =
