@@ -46,7 +46,7 @@ const Effects: React.FC<Props> = ({ update, useBloom }) => {
     }
   }, [useBloom])
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (!rgbShiftRef.current) {
       return
     }

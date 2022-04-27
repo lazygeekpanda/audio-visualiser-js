@@ -5,15 +5,13 @@ import { suspend } from 'suspend-react'
 
 import * as THREE from 'three'
 import { Canvas } from '@react-three/fiber'
-// TODO: Remove when done
-import { OrbitControls, Stats } from '@react-three/drei'
+import { Stats } from '@react-three/drei'
 
 import SynthScene from './SynthTerrain'
 import Track from './Track/Track'
 
 import TrackModel from 'models/track.model'
 
-// import * as S from './Visualizer3D.styled'
 import colors from 'styles/colors'
 
 interface Props {
@@ -64,7 +62,7 @@ const Visualizer3D: React.FC<Props> = ({
         gl.toneMapping = THREE.NoToneMapping
       }}
     >
-      <Stats showPanel={0} />
+      {process.env.NODE_ENV === 'development' && <Stats />}
       <React.Suspense fallback="Loading">
         <color attach="background" args={[colors.black]} />
         <fog attach="fog" args={[colors.black, 0.5, 3.5]} />

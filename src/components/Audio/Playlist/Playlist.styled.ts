@@ -26,6 +26,10 @@ export const ControlButton = styled.button`
   > svg {
     transition: all 0.2s ease-in-out;
   }
+
+  @media (max-width: 992px) {
+    background-color: ${colors.white};
+  }
 `
 
 export const Sidebar = styled.div`
@@ -41,6 +45,16 @@ export const Sidebar = styled.div`
   position: relative;
   z-index: 9;
   /* overflow-y: auto; */
+
+  @media (max-width: 992px) {
+    background-color: transparent;
+    position: fixed;
+    height: 100%;
+    justify-content: space-between;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
 `
 
 export const Player = styled.div`
@@ -63,6 +77,12 @@ export const Player = styled.div`
     left: 0;
     transform: translate(0, -20%);
     color: ${colors.black};
+  }
+
+  @media (max-width: 992px) {
+    padding: 10px 15px;
+    min-height: 250px;
+    max-height: 250px;
   }
 `
 
@@ -129,6 +149,10 @@ export const TrackTitle = styled.h2`
   font-weight: 400;
   letter-spacing: 1px;
   width: 60%;
+
+  @media (max-width: 992px) {
+    font-size: 24px;
+  }
 `
 
 export const TrackArtist = styled(BodyText)`
@@ -145,11 +169,21 @@ export const PlayerControls = styled.div`
 
   display: flex;
   justify-content: center;
+  align-items: center;
+
+  @media (max-width: 992px) {
+    bottom: 0;
+    transform: translateY(-25%);
+  }
 `
 
-export const PreviousSong = styled(ControlButton)`
-  background-color: transparent;
+const SmallControllButton = styled(ControlButton)`
   color: ${colors.white};
+
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+
   svg {
     width: 18px;
     height: 18px;
@@ -158,19 +192,16 @@ export const PreviousSong = styled(ControlButton)`
   &:hover > svg {
     fill: ${colors.white};
   }
-`
-export const NextSong = styled(ControlButton)`
-  background-color: transparent;
-  color: ${colors.white};
-  svg {
-    width: 18px;
-    height: 18px;
-  }
 
-  &:hover > svg {
-    fill: ${colors.white};
+  @media (max-width: 992px) {
+    &:hover > svg {
+      fill: ${colors.accent};
+    }
   }
 `
+
+export const PreviousSong = styled(SmallControllButton)``
+export const NextSong = styled(SmallControllButton)``
 
 export const PlayButton = styled(ControlButton)`
   background-color: ${colors.white};
@@ -193,6 +224,10 @@ export const PlayButton = styled(ControlButton)`
 export const ScrollWrapper = styled.div`
   flex: 1;
   overflow-y: auto;
+
+  @media (max-width: 992px) {
+    flex: unset;
+  }
 `
 
 export const Playlist = styled.div`
@@ -202,6 +237,10 @@ export const Playlist = styled.div`
     font-size: 14px;
     font-weight: 400;
     color: ${colors.grey};
+  }
+
+  @media (max-width: 992px) {
+    display: none;
   }
 `
 
@@ -269,7 +308,12 @@ export const TrackActions = styled.div`
   }
 `
 
-export const CreditsContainer = styled.code`
+export const CreditsContainer = styled.div`
   font-size: 12px;
   color: ${colors.grey};
+
+  @media (max-width: 992px) {
+    color: ${colors.white};
+    text-align: center;
+  }
 `

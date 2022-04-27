@@ -2,7 +2,13 @@
 
 Idea is to learn more about Audio and Audio Context, to create visualizers using react and three
 
+## Huge Thanks
+[Vaporwave 3D Scene](https://blog.maximeheckel.com/posts/vaporwave-3d-scene-with-threejs/)
+Huge thanks for this article which was an inspiration & learning material
+
 ## TODO
+ - Add 3D Audio Card on center
+ - Add audio controls
 
 ## References
  - [Building an Audio Visualizer With JavaScript](https://medium.com/swlh/building-a-audio-visualizer-with-javascript-324b8d420e7)
@@ -17,3 +23,4 @@ Idea is to learn more about Audio and Audio Context, to create visualizers using
   - [Waveforms](https://dcyoung.github.io/r3f-audio-visualizer/)
   - [Audio Visualizer with RF3](https://codesandbox.io/s/simple-audio-analyser-wu51m)
   - [Music Dashboard](https://dribbble.com/shots/17434466-Music-Dashboard-UI-Concept/attachments/12564544?mode=media)
+

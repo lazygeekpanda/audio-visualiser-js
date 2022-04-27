@@ -95,9 +95,9 @@ const Sidebar: React.FC<Props> = ({
           </S.TrackList>
         </S.Playlist>
         <S.CreditsContainer>
-          Credits:
+          <code>Credits:</code>
           {currentTrack.attributionText?.split('\n').map((text, index) => (
-            <div key={index}>{text}</div>
+            <div key={index}><code>{text}</code></div>
           ))}
         </S.CreditsContainer>
       </S.ScrollWrapper>
