@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo, memo } from 'react'
+import { useState, useEffect, useRef, useMemo, memo } from 'react'
 
 import * as THREE from 'three'
 import { useThree, extend, useFrame, Object3DNode } from '@react-three/fiber'
@@ -9,6 +9,8 @@ import {
   ShaderPass,
   UnrealBloomPass,
 } from 'three-stdlib'
+
+import isMobile from 'utils/isMobile'
 
 extend({ RenderPass, ShaderPass, UnrealBloomPass })
 
@@ -30,6 +32,12 @@ const Effects: React.FC<Props> = ({ update, useBloom }) => {
   const rgbShiftRef = useRef<typeof RGBShiftShader>()
 
   const { gl, scene, camera, size } = useThree()
+
+  const [mobile, setMobile] = useState(false)
+
+  useEffect(() => {
+    setMobile(isMobile())
+  }, [])
 
   useEffect(() => {
     if (!composerRef.current) {
@@ -60,25 +68,29 @@ const Effects: React.FC<Props> = ({ update, useBloom }) => {
   )
 
   return (
-    <EffectsComposer ref={composerRef} args={[gl]} disableGamma>
-      <renderPass
-        // @ts-ignore
-        attachArray="passes"
-        scene={scene}
-        camera={camera}
-      />
-      <shaderPass
-        // @ts-ignore
-        ref={rgbShiftRef}
-        attachArray="passes"
-        args={[RGBShiftShader]}
-      />
-      <unrealBloomPass
-        // @ts-ignore
-        attachArray="passes"
-        args={[aspect, 1.2, 1, 0]}
-      />
-    </EffectsComposer>
+    <>
+      {!mobile ? (
+        <EffectsComposer ref={composerRef} args={[gl]} disableGamma>
+          <renderPass
+            // @ts-ignore
+            attachArray="passes"
+            scene={scene}
+            camera={camera}
+          />
+          <shaderPass
+            // @ts-ignore
+            ref={rgbShiftRef}
+            attachArray="passes"
+            args={[RGBShiftShader]}
+          />
+          <unrealBloomPass
+            // @ts-ignore
+            attachArray="passes"
+            args={[aspect, 1.2, 1, 0]}
+          />
+        </EffectsComposer>
+      ) : null}
+    </>
   )
 }
 
