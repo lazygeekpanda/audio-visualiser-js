@@ -2,6 +2,7 @@
   "name": "audio-visualizer-js",
   "version": "0.1.1",
   "author": "Žymantas Venclauskas",
+  "license": "MIT",
   "private": false,
   "homepage": "http://lazygeekpanda.github.io/audio-visualizer-js",
   "dependencies": {
