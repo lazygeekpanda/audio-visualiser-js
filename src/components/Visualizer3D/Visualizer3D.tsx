@@ -10,27 +10,22 @@ import { Stats } from '@react-three/drei'
 import SynthScene from './SynthTerrain'
 import Track from './Track/Track'
 
-import TrackModel from 'models/track.model'
-
 import colors from 'styles/colors'
 
 interface Props {
   url: string
-  prodUrl: string
+  prodUrl?: string
   playing: boolean
   useBloom: boolean
-  track: TrackModel
 }
 
 const Visualizer3D: React.FC<Props> = ({
   playing = false,
   useBloom = true,
-  track = null,
   url,
-  prodUrl
 }) => {
   const { gain, context, data, play, stop, update } = suspend(
-    () => createAudio(process.env.NODE_ENV === 'development' ? require(`assets/audio/${url}`) : prodUrl),
+    () => createAudio(require(`assets/audio/${url}`)),
     [url]
   )
 

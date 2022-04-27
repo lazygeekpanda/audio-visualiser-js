@@ -64,7 +64,6 @@ const App: React.FC = () => {
               prodUrl={currentTrack.prodUrl}
               playing={playing}
               useBloom={useBloom}
-              track={currentTrack}
             />
           </Suspense>
         </div>

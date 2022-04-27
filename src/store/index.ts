@@ -55,16 +55,7 @@ const store: Store = {
       Music provided by NoCopyrightSounds
       Free Download/Stream: http://NCS.io/XXI
       Watch: http://youtu.be/gR2irrU9Xeo`,
-    },
-    // {
-    //   artist: 'QR',
-    //   trackName: 'XXI',
-    //   url: 'QR_XXI.mp3',
-    //   attributionText: `Song: QR - XXI [NCS Release]
-    //   Music provided by NoCopyrightSounds
-    //   Free Download/Stream: http://NCS.io/XXI
-    //   Watch: http://youtu.be/gR2irrU9Xeo`,
-    // },
+    }
   ],
 }
 
