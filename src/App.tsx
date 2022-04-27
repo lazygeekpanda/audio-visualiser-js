@@ -61,6 +61,7 @@ const App: React.FC = () => {
           <Suspense fallback={<Loader />}>
             <Visualizer3D
               url={currentTrack.url}
+              prodUrl={currentTrack.prodUrl}
               playing={playing}
               useBloom={useBloom}
               track={currentTrack}

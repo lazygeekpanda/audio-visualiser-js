@@ -16,6 +16,7 @@ import colors from 'styles/colors'
 
 interface Props {
   url: string
+  prodUrl: string
   playing: boolean
   useBloom: boolean
   track: TrackModel
@@ -26,9 +27,10 @@ const Visualizer3D: React.FC<Props> = ({
   useBloom = true,
   track = null,
   url,
+  prodUrl
 }) => {
   const { gain, context, data, play, stop, update } = suspend(
-    () => createAudio(require(`assets/audio/${url}`)),
+    () => createAudio(process.env.NODE_ENV === 'development' ? require(`assets/audio/${url}`) : prodUrl),
     [url]
   )
 

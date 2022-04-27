@@ -10,6 +10,7 @@ const store: Store = {
       artist: 'Hoober',
       trackName: 'Higher',
       url: 'Hoober_Higher.mp3',
+      prodUrl: 'https://audio.kodeo.lt/audio_files/Hoober_Higher.mp3',
       attributionText: `Song: Hoober - Higher (feat. Vanessa Campagna) [NCS Release]
       Music provided by NoCopyrightSounds
       Free Download/Stream: http://ncs.io/HHigher
@@ -19,6 +20,7 @@ const store: Store = {
       artist: 'Abandoned',
       trackName: 'Out of the Grave',
       url: 'Abandoned_Out_of_the_Grave.mp3',
+      prodUrl: 'https://audio.kodeo.lt/audio_files/Abandoned_Out_of_the_Grave.mp3',
       attributionText: `Song: Abandoned - Out of the Grave (Feat. ENROSA) [NCS Release]
       Music provided by NoCopyrightSounds
       Free Download/Stream: http://ncs.io/OutOfTheGrave
@@ -28,6 +30,7 @@ const store: Store = {
       artist: 'Egzod, Maestro Chives, Neoni',
       trackName: 'Royalty',
       url: 'Egzod_Royalty.mp3',
+      prodUrl: 'https://audio.kodeo.lt/audio_files/Egzod_Royalty.mp3.mp3',
       attributionText: `Song: Egzod, Maestro Chives, Neoni - Royalty [NCS Release]
       Music provided by NoCopyrightSounds
       Free Download/Stream: http://ncs.io/Royalty
@@ -37,6 +40,7 @@ const store: Store = {
       artist: 'Abstrakt',
       trackName: 'Nobody Else',
       url: 'Abstrakt_Nobody_Else.mp3',
+      prodUrl: 'https://audio.kodeo.lt/audio_files/Abstrakt_Nobody_Else.mp3',
       attributionText: `Song: Abstrakt - Nobody Else [NCS Release]
       Music provided by NoCopyrightSounds
       Free Download/Stream: http://NCS.io/NobodyElse
@@ -46,6 +50,7 @@ const store: Store = {
       artist: 'QR',
       trackName: 'XXI',
       url: 'QR_XXI.mp3',
+      prodUrl: 'https://audio.kodeo.lt/audio_files/QR_XXI.mp3',
       attributionText: `Song: QR - XXI [NCS Release]
       Music provided by NoCopyrightSounds
       Free Download/Stream: http://NCS.io/XXI
