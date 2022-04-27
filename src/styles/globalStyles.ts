@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
+
 html {
   -webkit-font-smoothing: antialiased;
     text-size-adjust: 100%;
@@ -11,7 +12,7 @@ html {
     padding: 0;
 
     font-size: 1rem;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
   }
 
   *,
@@ -23,10 +24,5 @@ html {
   h1, h2, h3, h4, h5, h6, p {
     margin: 0;
   }
-
-  
-body {
-  background: #252525;
-}
 
 `

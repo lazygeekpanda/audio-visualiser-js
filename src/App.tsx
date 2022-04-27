@@ -1,159 +1,84 @@
-import React, { useState, useEffect } from 'react'
+import React, { Suspense, useState, useEffect } from 'react'
 
-import * as THREE from 'three'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Stats, Html } from '@react-three/drei'
+import Loader from 'components/Loader/Loader'
+import Layout from 'components/Layout/Layout'
+import Visualizer3D from 'components/Visualizer3D'
+import Playlist from 'components/Audio/Playlist'
 
-import createAudio from 'utils/createAudio'
-import { suspend } from 'suspend-react'
+import TrackModel from 'models/track.model'
 
-import SynthTerrain from 'components/SynthTerrain/Scene'
-
-import colors from 'styles/colors'
-
-import Track from 'components/Track'
-
-const playlist = [
-  {
-    artist: 'Egzod',
-    trackName: 'Royalty',
-    url: 'Egzod_Royalty.mp3',
-  },
-  {
-    artist: 'Abstrakt',
-    trackName: 'Nobody Else',
-    url: 'Abstrakt_Nobody_Else.mp3',
-  },
-  {
-    artist: 'QR',
-    trackName: 'XXI',
-    url: 'QR_XXI.mp3',
-  },
-  {
-    artist: 'Facading',
-    trackName: 'Feelings',
-    url: 'Facading_Feelings.mp3',
-  },
-  {
-    artist: 'Abandoned',
-    trackName: 'Out of the Grave',
-    url: 'Abandoned_Out_of_the_Grave.mp3',
-  },
-  {
-    artist: 'Hoober',
-    trackName: 'Higher',
-    url: 'Hoober_Higher.mp3',
-  },
-]
+import store from 'store'
 
 const App: React.FC = () => {
-  const [currentTrack, setCurrentTrack] = useState(0)
-
-  const { gain, context, data, play, stop, update } = suspend(
-    () => createAudio(require(`assets/audio/${playlist[currentTrack].url}`)),
-    [currentTrack]
+  const { tracks } = store
+  const [trackIndex, setTrackIndex] = useState(0)
+  const [useBloom, setUseBloom] = useState(true)
+  const [currentTrack, setCurrentTrack] = useState<TrackModel>(
+    tracks[trackIndex]
   )
 
-const [useEffects, setUseEffects] = useState(false)
-
   useEffect(() => {
-    // Connect the gain node, which plays the audio
-    gain.connect(context.destination)
+    setCurrentTrack(tracks[trackIndex])
+  }, [trackIndex])
 
-    // Disconnect it on unmount
-    return () => gain.disconnect()
-  }, [gain, context])
+  const [playing, setPlaying] = useState(false)
 
-  const [isPlaying, setIsPlaying] = useState(false)
-
-  const onClick = () => {
-    if (isPlaying) {
-      setIsPlaying(false)
-      stop()
+  const onPlay = () => {
+    if (playing) {
+      setPlaying(false)
     } else {
-      setIsPlaying(true)
-      play()
+      setPlaying(true)
+    }
+  }
+
+  const onNextTrack = () => {
+    setPlaying(false)
+    setTrackIndex(trackIndex < store.tracks.length - 1 ? trackIndex + 1 : 0)
+  }
+
+  const onPreviousTrack = () => {
+    setPlaying(false)
+    setTrackIndex(trackIndex > 0 ? trackIndex - 1 : store.tracks.length - 1)
+  }
+
+  const onChangeTrack = (index: number) => {
+    if (trackIndex === index) {
+      setPlaying(!playing)
+    } else {
+      setPlaying(false)
+      setTrackIndex(index)
+
+      setTimeout(() => {
+        setPlaying(true)
+      }, 100)
     }
   }
 
   return (
-    <div>
-      <div style={{ display: 'inline-block', paddingRight: 100 }}></div>
-      <button onClick={onClick}>{isPlaying ? 'Pause' : 'Play'}</button>
-      <button onClick={() => setCurrentTrack(currentTrack < playlist.length - 1? currentTrack + 1 : 0)}>Next Song</button>
-      <button onClick={() => setUseEffects(!useEffects)}>{useEffects ? 'Disable' : 'Enable'} effects</button>
-
-      <div
-        style={{
-          width: '100vw',
-          height: 'calc(100vh - 22px)',
-          fontFamily: '"Cormorant Garamond", serif'
-        }}
-      >
-        <Canvas
-          camera={{
-            position: [0.01, 0.25, 0.4],
-            fov: 27,
-            near: 0.02,
-            far: 10,
-          }}
-          linear
-          dpr={[1, 2]}
-          onCreated={({ gl }) => {
-            gl.toneMapping = THREE.NoToneMapping
-          }}
-        >
-          <Stats showPanel={0} />
-          <React.Suspense fallback="Loading">
-            <color attach="background" args={[colors.black]} />
-            <fog attach="fog" args={[colors.black, 0.5, 2.5]} />
-            <Html position={[0, 0, -4]}>
-              <div style={{ minWidth: 300, color: 'white', textAlign: 'center', transform: 'translate3D(-50%, -100%, 0)' }}>
-                <h1 style={{ fontSize: '48px' }}>{playlist[currentTrack].trackName}</h1>
-                <p style={{ color: '#ccc', marginTop: 20 }}>
-                {playlist[currentTrack].artist}
-                </p>
-              </div>
-            </Html>
-
-            <Track
-              position={[-0.175, 0.01, 0.75]}
-              rotation={[-Math.PI / 2, -Math.PI / 2, -Math.PI / 2]}
-              update={update}
-              data={data}
+    <>
+      <Layout>
+        <div style={{ flex: 1, position: 'relative' }}>
+          <Suspense fallback={<Loader />}>
+            <Visualizer3D
+              url={currentTrack.url}
+              playing={playing}
+              useBloom={useBloom}
+              track={currentTrack}
             />
-            <Track
-              position={[0.175, 0.01, 0.75]}
-              rotation={[-Math.PI / 2, -Math.PI / 2, -Math.PI / 2]}
-              update={update}
-              data={data}
-            />
-
-            <SynthTerrain
-              isPlaying={isPlaying}
-              gain={gain}
-              context={context}
-              update={update}
-              data={data}
-              useEffects={useEffects}
-            />
-
-            <OrbitControls
-              minPolarAngle={Math.PI / 2.15}
-              maxPolarAngle={Math.PI / 2.2}
-              minAzimuthAngle={-Math.PI / 8}
-              maxAzimuthAngle={Math.PI / 8}
-              minDistance={1.5}
-              maxDistance={2.75}
-              rotateSpeed={0.15}
-            />
-          </React.Suspense>
-        </Canvas>
-        <div style={{ position: 'fixed', bottom: 0, right: 0, left: 0, textAlign: 'center', zIndex: 999, color: '#fff' }}>
-          Credits
+          </Suspense>
         </div>
-      </div>
-    </div>
+
+        <Playlist
+          playing={playing}
+          items={tracks}
+          currentTrack={currentTrack}
+          onChange={onChangeTrack}
+          onPlay={onPlay}
+          onNextTrack={onNextTrack}
+          onPreviousTrack={onPreviousTrack}
+        />
+      </Layout>
+    </>
   )
 }
 

@@ -16,3 +16,4 @@ Idea is to learn more about Audio and Audio Context, to create visualizers using
   - [George and Jonathan](https://www.georgeandjonathan.com/#1)
   - [Waveforms](https://dcyoung.github.io/r3f-audio-visualizer/)
   - [Audio Visualizer with RF3](https://codesandbox.io/s/simple-audio-analyser-wu51m)
+  - [Music Dashboard](https://dribbble.com/shots/17434466-Music-Dashboard-UI-Concept/attachments/12564544?mode=media)

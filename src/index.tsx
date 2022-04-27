@@ -9,9 +9,7 @@ const root = createRoot(document.getElementById('root')!)
 root.render(
   <React.StrictMode>
     <GlobalStyles />
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <App />
-    </React.Suspense>
+    <App />
   </React.StrictMode>
 )
 
