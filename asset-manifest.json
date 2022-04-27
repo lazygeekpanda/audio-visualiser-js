@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/audio-visualizer-js/static/js/main.50bfc215.js",
+    "main.js": "/audio-visualizer-js/static/js/main.fd79458f.js",
     "static/js/787.dd4c8b97.chunk.js": "/audio-visualizer-js/static/js/787.dd4c8b97.chunk.js",
     "static/media/Egzod_Royalty.mp3": "/audio-visualizer-js/static/media/Egzod_Royalty.3ba6da72335a3c2950ce.mp3",
     "static/media/Abandoned_Out_of_the_Grave.mp3": "/audio-visualizer-js/static/media/Abandoned_Out_of_the_Grave.5b91209cfd09527a4d96.mp3",
@@ -12,10 +12,10 @@
     "static/media/backward-step-solid.svg": "/audio-visualizer-js/static/media/backward-step-solid.d12d476aaf9ab1f4290dd5362acdd8e1.svg",
     "static/media/pause-solid.svg": "/audio-visualizer-js/static/media/pause-solid.7541f24bdf92f0189214c25f020d1737.svg",
     "static/media/play-solid.svg": "/audio-visualizer-js/static/media/play-solid.c1755efd355e32f772cc846afc5432b6.svg",
-    "main.50bfc215.js.map": "/audio-visualizer-js/static/js/main.50bfc215.js.map",
+    "main.fd79458f.js.map": "/audio-visualizer-js/static/js/main.fd79458f.js.map",
     "787.dd4c8b97.chunk.js.map": "/audio-visualizer-js/static/js/787.dd4c8b97.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.50bfc215.js"
+    "static/js/main.fd79458f.js"
   ]
 }
