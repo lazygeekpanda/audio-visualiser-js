@@ -190,7 +190,7 @@ const SmallControllButton = styled(ControlButton)`
   }
 
   &:hover > svg {
-    fill: ${colors.white};
+    fill: ${colors.accent};
   }
 
   @media (max-width: 992px) {
