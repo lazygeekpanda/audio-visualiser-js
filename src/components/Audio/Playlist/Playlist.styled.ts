@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { animated } from 'react-spring'
 
 import colors from 'styles/colors'
 
@@ -29,7 +28,7 @@ export const ControlButton = styled.button`
   }
 `
 
-export const Sidebar = styled(animated.div)`
+export const Sidebar = styled.div`
   min-width: 400px;
   max-width: 400px;
   background-color: ${colors.black};
@@ -41,36 +40,7 @@ export const Sidebar = styled(animated.div)`
 
   position: relative;
   z-index: 9;
-  overflow-y: auto;
-`
-
-export const Toggler = styled.div`
-  position: absolute;
-  top: 30px;
-  right: 400px;
-
-  width: 50px;
-  height: 50px;
-
-  transform: translate(0, 0);
-
-  background-color: ${colors.green};
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 11;
-
-  cursor: pointer;
-
-  > svg {
-    width: 80%;
-    height: 80%;
-    fill: ${colors.white};
-  }
+  /* overflow-y: auto; */
 `
 
 export const Player = styled.div`
@@ -164,6 +134,7 @@ export const TrackTitle = styled.h2`
 export const TrackArtist = styled(BodyText)`
   margin-top: 10px;
   font-size: 14px;
+  width: 60%;
 `
 
 export const PlayerControls = styled.div`
@@ -219,8 +190,12 @@ export const PlayButton = styled(ControlButton)`
   }
 `
 
-export const Playlist = styled.div`
+export const ScrollWrapper = styled.div`
   flex: 1;
+  overflow-y: auto;
+`
+
+export const Playlist = styled.div`
   margin-top: 30px;
 
   > label {
